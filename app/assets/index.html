@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Brunch With Elm</title>
+    <link rel="stylesheet" href="css/app.css">
+  </head>
+
+  <body>
+
+    <!-- Require Elm Code & Regular JS -->
+    <script src="js/main.js"></script>
+    <script src="js/app.js"></script>
+
+    <!-- Start Elm app in fullscreen mode -->
+    <script>
+
+      var app = Elm.Main.fullscreen();
+
+      app.ports.listFiles.subscribe(function(fileList) {
+        var files = [];
+        for (var i = 0; i < fileList.length; i++) {
+          var fileRef = fileList.item(i);
+          files.push({
+            type_: fileRef.type,
+            name: fileRef.name,
+            size: fileRef.size,
+            blob: fileRef
+          });
+        }
+        app.ports.files.send(files);
+      });
+    </script>
+  </body>
+</html>
